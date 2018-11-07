@@ -28,7 +28,8 @@ Quick links to libraries, APIs, maps, and other data resources utilized in the c
 * OpenStreetMap
 
 ## Mapping Utilities
-* Neighborhoods 
+* Neighborhoods GeoJSON - 
+  - Converter for KML -> GeoJSON
 * Leaflet.heat - https://github.com/Leaflet/Leaflet.heat/blob/gh-pages/dist/leaflet-heat.js
   - not yet used, but may be useful
 * Leaflet Marker Clustering - https://leafletjs.com/plugins.html#clusteringdecluttering
