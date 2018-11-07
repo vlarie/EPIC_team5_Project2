@@ -4,7 +4,7 @@
 
 To ensure receipt of notifications on repo
 	
-- Navigate to GitHub repo page `vlarie/EPIC_team5`
+- Navigate to GitHub repo page `vlarie/EPIC_team5_Project2`
 - Under the main header bar on the right, select the drop down next to the eyeball and change notifications to `Watching`
   - You may also want to `Star` the repo 
 
