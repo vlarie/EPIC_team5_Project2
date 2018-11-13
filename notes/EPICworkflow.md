@@ -91,8 +91,8 @@ terminal method:
 
   * This command performs `fetch` and `merge` at the same time.  If you prefer, you can also first call `git fetch` and `git status` to see where you are in relationship to `master`, then perform `pull` or `merge`.  
 
-![GitFetch](/notes/gitStatus1.png)
-![GitPull](/notes/gitStatus2.png)
+![GitFetch](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus1.PNG)
+![GitPull](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus2.PNG)
 
 #### NOTE: You may have to review differences/merge conflicts
 
