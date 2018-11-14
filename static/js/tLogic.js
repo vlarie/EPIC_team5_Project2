@@ -31,7 +31,7 @@ function cp(geoProp) {
   }).addTo(myMap);
 
   // Link to GeoJSON
-  var link = "../data/EPIC_data_noCrime.geojson";
+  var link = "../data/EPIC_data.geojson";
 
   var geojson;
   console.log(geoProp)
@@ -45,14 +45,14 @@ function cp(geoProp) {
         gpDescriptor = "Average Home Value ($)";
         endColor = 'Green';
         break;
-    // case 'valuation':
-    //     gpDescriptor = "Commute Time (mins)";
-    //     endColor = Green;
-    //     break;
-    // case 'valuation':
-    //     gpDescriptor = "Commute Time (mins)";
-    //     endColor = Green;
-    //     break;
+    case 'Severity':
+        gpDescriptor = "Crime Severity (2016)";
+        endColor = 'Crimson';
+        break;
+    case 'School_Rating':
+        gpDescriptor = "School Rating";
+        endColor = 'DarkMagenta'
+        break;
     // case 'valuation':
     //     gpDescriptor = "Commute Time (mins)";
     //     endColor = Green;
@@ -94,7 +94,7 @@ console.log(gpDescriptor + " " + endColor)
 
       // Binding a pop-up to each layer
       onEachFeature: function(feature, layer) {
-              layer.bindPopup(feature.properties.Name + " <br>" + feature.properties.zipcode + "<br> Sample Count:" + feature.properties.count_x + "<br> Average Home Age:" + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft):" + feature.properties.sqft+ "<br> Average Home Value: $" + feature.properties.valuation +  "<br> Average Commute Time (mins):" + feature.properties.commuteTime);
+              layer.bindPopup(feature.properties.Name + " <br>" + feature.properties.zipcode + "<br> Sample Count:" + feature.properties.count_x + "<br> Average Home Age:" + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft):" + feature.properties.sqft+ "<br> Average School Rating: $" + feature.properties.School_Rating +  "<br> Average Commute Time (mins):" + feature.properties.commuteTime);
             }
     }).addTo(myMap);
 
