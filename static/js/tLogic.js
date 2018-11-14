@@ -35,7 +35,7 @@ function cp(geoProp) {
 
   var geojson;
   console.log(geoProp)
-
+  startColor = "#ffffb2";
   switch (geoProp) {
     case 'commuteTime':
         gpDescriptor = "Commute Time (mins)";
@@ -78,7 +78,7 @@ console.log(gpDescriptor + " " + endColor)
       valueProperty: geoProp,
 
       // Set color scale
-      scale: ["#ffffb2", endColor],
+      scale: [startColor, endColor],
 
       // Number of breaks in step range
       steps: 10,
