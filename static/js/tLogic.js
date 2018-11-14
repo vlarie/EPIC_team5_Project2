@@ -36,6 +36,37 @@ function cp(geoProp) {
   var geojson;
   console.log(geoProp)
 
+  switch (geoProp) {
+    case 'commuteTime':
+        gpDescriptor = "Commute Time (mins)";
+        endColor = 'Indigo';
+        break;
+    case 'valuation':
+        gpDescriptor = "Average Home Value ($)";
+        endColor = 'Green';
+        break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+}
+console.log(gpDescriptor + " " + endColor)
+
   d3.json(link).then(successHandle);
 
   function successHandle(data) {
@@ -47,7 +78,7 @@ function cp(geoProp) {
       valueProperty: geoProp,
 
       // Set color scale
-      scale: ["#ffffb2", "#b10026"],
+      scale: ["#ffffb2", endColor],
 
       // Number of breaks in step range
       steps: 10,
@@ -76,7 +107,7 @@ function cp(geoProp) {
       var labels = [];
 
       // Add min & max
-      var legendInfo = "<h1>" + geoProp + "</h1>" +
+      var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
         "<div class=\"labels\">" +
           "<div class=\"min\">" + limits[0] + "</div>" +
           "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
