@@ -37,7 +37,7 @@ def dashboard():
 
     # These reference variables allow for access on html via Jinja
     # Zillow and commute data
-    zillowCommDF = csvDF("./data/zillowClean.csv")
+    zillowCommDF = csvDF("./data/zillowCommuteData.csv")
     jsonZillowComm = json.loads(zillowCommDF.to_json(orient='records'))
 
     # Crime data
@@ -63,9 +63,6 @@ def jsonified():
         DF = pd.DataFrame(csvIN)
         return DF
 
-    DF = csvDF("./data/sampleDevData.csv")
-    jsonfiles = json.loads(DF.to_json(orient='records'))
-
     # Zillow and commute data
     zillCommDF = csvDF("./data/zillowClean.csv")
     jsonZillComm = json.loads(zillCommDF.to_json(orient='records'))
@@ -86,7 +83,7 @@ def jsonified():
 @app.route("/trends")
 def trends():
     print()
-    return render_template("index.html")
+    return render_template("trends.html")
 
 
 if __name__ == "__main__":
