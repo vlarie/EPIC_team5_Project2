@@ -29,24 +29,28 @@ Please ensure one or more of these conditions is met before submitting a pull re
 ### Create branch using established naming conventions
 terminal method:
 - Create new branch
+
 `git branch <branch_name>`
 
 - Command to move between branches
+
 `git checkout <branch_name or master>`
 
 - Create and switch to branch in one line
+
 `git checkout -b <branch_name>`
 
 
 
 ### Complete work on branch 
-Work on branch locally making commits often as code develops
+Work on a branch locally making commits often as code develops.
 
 
 
 ### Push branch to GitHub
 terminal method:
 - Updates branch specified on GitHub
+
 `git push origin <branch_name>`
 
 
@@ -75,15 +79,28 @@ After branch work is complete and you want to merge to master, navigate to GitHu
 - Each person should then update their local repo to incorporate changes
 
 terminal method:	
-- First navigate to relevant repo folder 
-  - If you have NOT made ANY changes locally whatsoever, use the following command
+- First navigate to relevant repo folder and make sure you have the branch you are working on checked out.  Use the following command to make sure your branch is clean
+
+`git status`
+
+  - If your branch is not clean, commit work you do not want to lose. Repeat the previous command to ensure your working branch is clean before proceeding.
+
+- Once you have a clean working branch, use the following command to retrieve the latest changes from `master`
+
 `git pull origin master`
 
-  - If you have made commits on your local copy, using rebase will roll back your changes temporarily 
-to first update your local copy to match current remote, then replay your changes onto the end
-`git fetch`
-`git rebase origin/master`
+  * This command performs `fetch` and `merge` at the same time.  If you prefer, you can also first call `git fetch` and `git status` to see where you are in relationship to `master`, then perform `pull` or `merge`.  
 
-#### NOTE: You may have to review differences/merge conflicts with this method
+![GitFetch](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus1.PNG)
+![GitPull](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus2.PNG)
+
+#### NOTE: You may have to review differences/merge conflicts
 
 
+
+### Removing unwanted files from repository
+- If files are commited that you no longer want in the repo whatsoever, you can remove them from tracked files with the following command
+
+`git rm --cached -f <filename>`
+
+  * This command is especially helpful for files created by the operating system such as `.DS_Store` that have been committed accidently.  These files should also be added to the `.gitignore`.
