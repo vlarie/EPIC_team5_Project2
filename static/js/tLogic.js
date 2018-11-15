@@ -10,6 +10,12 @@
 // still to come are crime and school data and the switch to change color and labels based on which data is being displayed
 
 function cp(geoProp) {
+
+  var container = L.DomUtil.get('map');
+  if(container != null){
+  container._leaflet_id = null;
+  }
+
   // Creating map object
   var myMap = L.map("map", {
     center: [30.301378,-98.0103974],
@@ -31,10 +37,41 @@ function cp(geoProp) {
   }).addTo(myMap);
 
   // Link to GeoJSON
-  var link = "../data/EPIC_data_noCrime.geojson";
+  var link = "../data/EPIC_data.geojson";
 
   var geojson;
   console.log(geoProp)
+  startColor = "#ffffb2";
+  switch (geoProp) {
+    case 'commuteTime':
+        gpDescriptor = "Commute Time (mins)";
+        endColor = 'Indigo';
+        break;
+    case 'valuation':
+        gpDescriptor = "Average Home Value ($)";
+        endColor = 'Green';
+        break;
+    case 'Severity':
+        gpDescriptor = "Crime Severity (2016)";
+        endColor = 'Crimson';
+        break;
+    case 'school_rating':
+        gpDescriptor = "School Rating";
+        endColor = 'DarkMagenta'
+        break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+    //     break;
+    // case 'valuation':
+    //     gpDescriptor = "Commute Time (mins)";
+    //     endColor = Green;
+}
+console.log(gpDescriptor + " " + endColor)
 
   d3.json(link).then(successHandle);
 
@@ -47,10 +84,10 @@ function cp(geoProp) {
       valueProperty: geoProp,
 
       // Set color scale
-      scale: ["#ffffb2", "#b10026"],
+      scale: [startColor, endColor],
 
       // Number of breaks in step range
-      steps: 10,
+      steps: 8,
 
       // q for quartile, e for equidistant, k for k-means
       mode: "q",
@@ -63,7 +100,7 @@ function cp(geoProp) {
 
       // Binding a pop-up to each layer
       onEachFeature: function(feature, layer) {
-              layer.bindPopup(feature.properties.Name + " <br>" + feature.properties.zipcode + "<br> Sample Count:" + feature.properties.count_x + "<br> Average Home Age:" + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft):" + feature.properties.sqft+ "<br> Average Home Value: $" + feature.properties.valuation +  "<br> Average Commute Time (mins):" + feature.properties.commuteTime);
+              layer.bindPopup(feature.properties.Name + " <br>" + feature.properties.zipcode + "<br> Sample Count:" + feature.properties.count_x + "<br> Average Home Age:" + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft):" + feature.properties.sqft+ "<br> Average School Rating: $" + feature.properties.School_Rating +  "<br> Average Commute Time (mins):" + feature.properties.commuteTime);
             }
     }).addTo(myMap);
 
@@ -76,7 +113,7 @@ function cp(geoProp) {
       var labels = [];
 
       // Add min & max
-      var legendInfo = "<h1>" + geoProp + "</h1>" +
+      var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
         "<div class=\"labels\">" +
           "<div class=\"min\">" + limits[0] + "</div>" +
           "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
@@ -99,4 +136,4 @@ function cp(geoProp) {
 
 }
 
-cp('commuteTime');
+// cp('school_rating');
