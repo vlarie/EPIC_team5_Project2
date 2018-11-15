@@ -10,6 +10,12 @@
 // still to come are crime and school data and the switch to change color and labels based on which data is being displayed
 
 function cp(geoProp) {
+
+  var container = L.DomUtil.get('map');
+  if(container != null){
+  container._leaflet_id = null;
+  }
+
   // Creating map object
   var myMap = L.map("map", {
     center: [30.301378,-98.0103974],
@@ -49,7 +55,7 @@ function cp(geoProp) {
         gpDescriptor = "Crime Severity (2016)";
         endColor = 'Crimson';
         break;
-    case 'School_Rating':
+    case 'school_rating':
         gpDescriptor = "School Rating";
         endColor = 'DarkMagenta'
         break;
@@ -81,7 +87,7 @@ console.log(gpDescriptor + " " + endColor)
       scale: [startColor, endColor],
 
       // Number of breaks in step range
-      steps: 10,
+      steps: 8,
 
       // q for quartile, e for equidistant, k for k-means
       mode: "q",
@@ -130,4 +136,4 @@ console.log(gpDescriptor + " " + endColor)
 
 }
 
-cp('commuteTime');
+// cp('school_rating');
