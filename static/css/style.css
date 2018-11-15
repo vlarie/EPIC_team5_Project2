@@ -76,7 +76,7 @@ body {
 
 #sidebar {
     margin-top: 75px;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 #filter-box {
