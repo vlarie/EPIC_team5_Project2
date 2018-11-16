@@ -37,7 +37,9 @@
 <!-- NAVBAR -->
 <div id="nav-box" class=".bg-primary">
 <header class="navbar navbar-expand-lg navbar-light" id="myNavbar">
-    <a class="navbar-brand mb-0" href="#" id="epic-title"><h3>EPIC Austin Housing Explorer</h3></a>
+    <a class="navbar-brand mb-0" href="#" id="epic-title">
+        <h3>EPIC Austin Housing Explorer</h3>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,13 +73,12 @@
                 <h5 class="panel-title">Filters </h5>
             </div>
             <div class="panel-body">
-                <div id="filter-btns">
+                <div class="btn-group" id="filter-btns">
                     <!-- class="btn-group" role="group" -->
                     <button role="group" class="btn btn-outline-primary active" id="btn-house" onclick="cp('valuation')">Houses</button>
                     <button class="btn btn-outline-primary" id="btn-commute" onclick="cp('commuteTime')">Commute</button>
                     <button class="btn btn-outline-primary" id="btn-crime" onclick="cp('Severity')">Crime</button>
                     <button class="btn btn-outline-primary" id="btn-school" onclick="cp('school_rating')">School</button>
-                    <!-- onclick="myFunction()" -->
                 </div>
             </div>
         </div>
