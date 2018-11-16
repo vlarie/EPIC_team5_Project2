@@ -8,12 +8,11 @@
 // year_built
 // the cp call at the bottom of the file sets the initial display data
 // still to come are crime and school data and the switch to change color and labels based on which data is being displayed
-import csv;
 
 
-f = open('../data/schoolDataFINAL.csv');
-csv_f = csv.reader(f);
-console.log(csv_f);
+// f = open('../data/schoolDataFINAL.csv');
+// csv_f = csv.reader(f);
+// console.log(csv_f);
 
 
 function cp(geoProp) {
@@ -44,7 +43,8 @@ function cp(geoProp) {
   }).addTo(myMap);
 
   // Link to GeoJSON
-  var link = "../data/EPIC_data.geojson";
+  var link = "../data/EPIC_data_1405.geojson";
+  var houseMarkersLink = '../data/houseMarkers.json'
 
   var geojson;
   console.log(geoProp)
@@ -64,7 +64,7 @@ function cp(geoProp) {
         break;
     case 'school_rating':
         gpDescriptor = "School Rating";
-        endColor = 'DarkMagenta'
+        endColor = 'Teal'
         break;
     // case 'valuation':
     //     gpDescriptor = "Commute Time (mins)";
@@ -94,7 +94,7 @@ console.log(gpDescriptor + " " + endColor)
       scale: [startColor, endColor],
 
       // Number of breaks in step range
-      steps: 8,
+      steps:8,
 
       // q for quartile, e for equidistant, k for k-means
       mode: "q",
@@ -110,8 +110,7 @@ console.log(gpDescriptor + " " + endColor)
 
       
       onEachFeature: function(feature, layer) {
-              layer.bindPopup('<strong>'+feature.properties.Name+'</strong>' + " - " + feature.properties.zipcode + "<br><br> Sample Count: " + feature.properties.count + "<br> Average Home Age: " + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft): " + feature.properties.sqft+ "<br> Average School Rating [1-10]: " + Math.floor(feature.properties.school_rating) +  "<br> Average Commute Time (mins): " + feature.properties.commuteTime);
-           
+              // Set mouse events to change map styling      
               layer.on({
                 // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
                 mouseover: function(event) {
@@ -129,10 +128,19 @@ console.log(gpDescriptor + " " + endColor)
                 },
                 // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
                 click: function(event) {
-                  map.fitBounds(event.target.getBounds());
+                  myMap.fitBounds(event.target.getBounds());
                 }
               });
-           
+              layer.bindPopup('<h2>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h2>' 
+              + "<hr> Sample Count: <strong>" + feature.properties.count + "</strong>"
+              + "<h2>Averages</h2><hr>"               
+              + "<h4>Home Value: <strong>$" + feature.properties.valuation + "</strong></h4>"
+              // + "<h4>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
+              + "<h4>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h4>"
+              + "<h4>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h4>"
+              + "<h4>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h4>" 
+              + "<h4>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h4>"
+              + "<h4>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h4>");
             }
     }).addTo(myMap);
 
@@ -178,15 +186,28 @@ console.log(gpDescriptor + " " + endColor)
     // Add min & max
     var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
     "<div class=\"labels\">" +
-      "<div class=\"min\">" + legendLimits[0] + "</div>" +
-      "<div class=\"max\">" + legendLimits[legendLimits.length - 1] + "</div>" +
+      "<div class=\"min\">" + Math.ceil(legendLimits[0]) + "</div>" +
+      "<div class=\"max\">" + Math.ceil(legendLimits[legendLimits.length - 1]) + "</div>" +
     "</div>"+
     "<ul>" + legendLabels.join("") + "</ul>";
 
     legendDiv.html(legendInfo);
 
-  }
+  };
 
-}
+// // creating houseMarker layer
+//   d3.json(houseMarkersLink).then(hmsuccessHandle);
+
+//   function hmsuccessHandle(data) {
+//     console.log(data)
+//     for (var i = 0; i < data.length; i++) {
+//       var house = data[i];
+//       L.marker(house.location)
+//         .bindPopup("<h1>" + house.address + "</h1> <hr> <h3>House Value $" + house.valuation + "</h3>")
+//         .addTo(myMap);
+//     }
+//   }
+
+};
 
 // cp('school_rating');
