@@ -129,6 +129,8 @@ console.log(gpDescriptor + " " + endColor)
                 // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
                 click: function(event) {
                   myMap.fitBounds(event.target.getBounds());
+                  console.log(event.sourceTarget.feature.properties.zipcode, geoProp)
+                  buildChart(geoProp, event.sourceTarget.feature.properties.zipcode)
                 }
               });
               layer.bindPopup('<h2>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h2>' 
