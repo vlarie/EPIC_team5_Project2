@@ -1,4 +1,4 @@
-function buildCharts() {
+function buildCharts(caseName, chosenZip) {
     d3.json('/jsonifiedData/').then(successHandle).catch(errorHandle)
     function errorHandle(error) {
         console.log("Unable to retrieve data")
@@ -28,28 +28,14 @@ function buildCharts() {
         //////  RESPONSES GROUPED BY ZIPCODE  //////
         // // Zillow/Commute response
         var ZClist = arrayFromObject(response[0]);
-        // var result = groupBy(ZClist, function(item) {
-        //     return [item.zipcode];
-        
         // // Crime response
         var Clist = arrayFromObject(response[1]);
-        // var result = groupBy(Clist, function(item) {
-        //     return [item.zipcode];
-
         // // School response
         var Slist = arrayFromObject(response[2]);
-        // var result = groupBy(Slist, function(item) {
-        //     return [item.house_zipcode];
 
-        // });
 
-        // // All groups (lists)
-        console.log(result);
-        // // Individual group zipcode
-        // console.log(result[0][0]["zipcode"]);
-
-        var data = "valuation";
-        var chosenZip = 78757;
+        var data = caseName;
+        // var chosenZip = 78722;
 
         switch(data) {
             // If Valuation
@@ -105,7 +91,7 @@ function buildCharts() {
             // If Crime
             // 78732 - low - [45]
             // 78744 - high - [8]
-            case 'offenseCategory':
+            case 'Severity':
                 console.log("Crime case selected");
                 // var Clist = arrayFromObject(response[1]);
                 var result = groupBy(Clist, function(item) {
@@ -129,7 +115,7 @@ function buildCharts() {
                 break
 
             // If School
-            // // 78617 - low - [5]  *** Missing 78701
+            // // 78617 - low - [5]  *** Missing 78701, 78722
             // // 78738 - high - [2]
             case 'school_rating':
                 console.log("School case selected");
