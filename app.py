@@ -49,7 +49,7 @@ def dashboard():
     # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
     # schools=jsonSchool
 
-    return render_template("tempDev.html", listings=jsonZillowComm, incidents=jsonCrime)
+    return render_template("explore.html", listings=jsonZillowComm, incidents=jsonCrime)
 
 
 # This route reads in CSVs containing datapoints and converts them to JSON format 
