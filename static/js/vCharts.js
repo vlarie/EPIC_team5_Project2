@@ -23,56 +23,145 @@ function buildCharts() {
             data.zipcode = +data.zipcode;
             data.offenseCategory = data.offenseCategory;
             data.offenseDetails = data.offenseDetails;
+            data.Severity = +data.Severity;
         });   
         // School data (response[2])
-        // response[2].forEach(function(data) {
-        //     data.zipcode = +data.zipcode;
-        //     data.offenseCategory = data.offenseCategory;
-        //     data.offenseDetails = data.offenseDetails;
-        // }); 
+        response[2].forEach(function(data) {
+            data.zipcode = +data.zipcode;
+            data.offenseCategory = data.offenseCategory;
+            data.offenseDetails = data.offenseDetails;
+        }); 
          
-      // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
-    
-    var xBandScale = d3.scaleBand()
-        .domain(response[0].map(d => d.zipcode))
-        .range([0, width])
-        .padding(0.1);
+       
+        chart = {
+            const svg = d3.select(DOM.svg(width, height));
+            
+            const bar = svg.append("g")
+                .attr("fill", "steelblue")
+              .selectAll("rect")
+              .data(bins)
+              .enter().append("rect")
+                .attr("x", d => x(d.x0) + 1)
+                .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+                .attr("y", d => y(d.length))
+                .attr("height", d => y(0) - y(d.length));
+          
+            svg.append("g")
+                .call(xAxis);
+            
+            svg.append("g")
+                .call(yAxis);
+            
+            return svg.node();
+          }   
 
-    // Create a linear scale for the vertical axis.
-    var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(response[0], d => d.valuation)])
-        .range([height, 0]);
-    
-    //////  x/yLinearScale functions can be found in <vFunctions.js>  ///////
-    // Create x- & y-scale function variables
-    // var xLinearScale = xScale(response[0], chosenXAxis);
-    // var yLinearScale = yScale(response[0], chosenYAxis);
-    
-    // Create initial axis variables
-    var bottomAxis = d3.axisBottom(xBandScale);
-    var leftAxis = d3.axisLeft(yLinearScale);
+        data = {
+            const data = (await require("@observablehq/unemployment")).map(d => d.rate);
+            data.y = "Counties";
+            data.x = "Unemployment (%)";
+            return data;
+        }
 
-    // Append x-axis
-    var xAxis = chartGroup.append("g")
-        .classed("x-axis", true)
-        .attr("transform", `translate(0, ${height})`)
-        .call(bottomAxis);
+        bins = d3.histogram()
+            .domain(x.domain())
+            .thresholds(x.ticks(40))
+        (data)
 
-    // Append y-axis
-    var yAxis = chartGroup.append("g")
-        .classed("y-axis", true)
-        .call(leftAxis);
+        x = d3.scaleLinear()
+            .domain(d3.extent(data)).nice()
+            .range([margin.left, width - margin.right])
 
-    chartGroup.selectAll(".bar")
-        .data(response[0])
-        .enter()
-        .append("rect")
-        .attr("class", "bar")
-        .attr("x", d => xBandScale(d.zipcode))
-        .attr("y", d => yLinearScale(d.valuation))
-        .attr("width", xBandScale.bandwidth())
-        .attr("height", d => height - yLinearScale(d.valuation));
+        y = d3.scaleLinear()
+            .domain([0, d3.max(bins, d => d.length)]).nice()
+            .range([height - margin.bottom, margin.top])
+
+        xAxis = g => g
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x).tickSizeOuter(0))
+            .call(g => g.append("text")
+                .attr("x", width - margin.right)
+                .attr("y", -4)
+                .attr("fill", "#000")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "end")
+                .text(data.x))
+
+        yAxis = g => g
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(y))
+            .call(g => g.select(".domain").remove())
+            .call(g => g.select(".tick:last-of-type text").clone()
+                .attr("x", 4)
+                .attr("text-anchor", "start")
+                .attr("font-weight", "bold")
+                .text(data.y))
+
+        height = 500
+
+        margin = ({top: 20, right: 20, bottom: 30, left: 40})
+
+        d3 = require("d3@5")
+
+
+
+
+    //     // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
+    //     var xLinearScale = d3.scaleLinear()
+    //     .domain(response[0].map(d => d.zipcode))
+    //     .range([0, width]);
+        
+    //     var histogram = d3.histogram()
+    //         .value(d => d.valuation)
+    //         .domain(xLinearScale.domain())
+    //         .thresholds(xLinearScale.ticks(10));
     
+    //     var bins = histogram(response[0]);
+
+    // // Create a linear scale for the vertical axis.
+    // var yLinearScale = d3.scaleLinear()
+    //     .domain([0, d3.max(bins, d => d.valuation)])
+    //     .range([height, 0]);
+
+    
+    // //////  x/yLinearScale functions can be found in <vFunctions.js>  ///////
+    // // Create x- & y-scale function variables
+    // // var xLinearScale = xScale(response[0], chosenXAxis);
+    // // var yLinearScale = yScale(response[0], chosenYAxis);
+    
+    // // Create initial axis variables
+    // var bottomAxis = d3.axisBottom(xLinearScale);
+    // var leftAxis = d3.axisLeft(yLinearScale);
+
+
+    // // Append x-axis
+    // var xAxis = chartGroup.append("g")
+    //     .classed("x-axis", true)
+    //     .attr("transform", `translate(0, ${height})`)
+    //     .call(bottomAxis);
+
+    // // Append y-axis
+    // var yAxis = chartGroup.append("g")
+    //     .classed("y-axis", true)
+    //     .call(leftAxis);
+
+    // chartGroup.selectAll(".bar")
+    //     .data(response[0])
+    //     .enter()
+    //     .append("rect")
+    //     .attr("class", "bar")
+    //     .attr("x", d => xLinearScale(d.zipcode))
+    //     .attr("y", d => yLinearScale(d.valuation))
+    //     .attr("width", xLinearScale.bandwidth())
+    //     .attr("height", d => height - yLinearScale(d.valuation));
+    
+
+
+
+
+
+
+
+
     ///////////////////  Group for 3 x-axis labels  ////////////////////
     // var xlabelsGroup = chartGroup.append("g")
     //     .attr("transform", `translate(${width / 2}, ${height + 20})`)

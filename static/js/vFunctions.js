@@ -47,6 +47,8 @@ function renderYAxes(newYScale, yAxis) {
     return yAxis;
 }
 
+
+
 ///////////////  Update circles group with transition to new circles  ///////////////
 // function used for updating circles group with a transition to new circles
 function renderCircles(circlesLoc, circlesText, newXScale, newYScale, chosenXAxis, chosenYAxis) {

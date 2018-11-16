@@ -64,7 +64,7 @@ def jsonified():
         return DF
 
     # Zillow and commute data
-    zillCommDF = csvDF("./data/zillowClean.csv")
+    zillCommDF = csvDF("./data/zillowCommuteData.csv")
     jsonZillComm = json.loads(zillCommDF.to_json(orient='records'))
 
     # Crime data
@@ -72,10 +72,10 @@ def jsonified():
     jsonCrime = json.loads(crimeDF.to_json(orient='records'))
 
     # School data
-    # schoolDF = csvDF("./data/schoolData.csv")
-    # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
+    schoolDF = csvDF("./data/schoolDataFINAL.csv")
+    jsonSchool = json.loads(schoolDF.to_json(orient='records'))
 
-    return jsonify(jsonZillComm, jsonCrime)
+    return jsonify(jsonZillComm, jsonCrime, jsonSchool)
 
 
 # This route displays dynamic timelapse map of Austin properties
