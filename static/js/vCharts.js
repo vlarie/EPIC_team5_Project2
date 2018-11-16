@@ -32,49 +32,47 @@ function buildCharts() {
             data.offenseDetails = data.offenseDetails;
         }); 
          
-       
-        chart = {
-            const svg = d3.select(DOM.svg(width, height));
+        
+    
+            var data = response[0].map(d => d.commuteTime);
+                data.y = "Houses";
+                data.x = "Commute Time (minutes)";
+                        
             
-            const bar = svg.append("g")
+            x = d3.scaleLinear()
+                .domain(d3.extent(data))
+                .nice()
+                .range([margin.left, width - margin.right])
+
+            bins = d3.histogram()
+                .domain(x.domain())
+                .thresholds(x.ticks(20))
+            (data)
+
+        
+            y = d3.scaleLinear()
+                .domain([0, d3.max(bins, d => d.length)])
+                .nice()
+                .range([height - margin.bottom, margin.top])
+
+            
+            bar = svg.append("g")
                 .attr("fill", "steelblue")
-              .selectAll("rect")
-              .data(bins)
-              .enter().append("rect")
+                .selectAll("rect")
+                .data(bins)
+                .enter()
+                .append("rect")
                 .attr("x", d => x(d.x0) + 1)
                 .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
                 .attr("y", d => y(d.length))
                 .attr("height", d => y(0) - y(d.length));
-          
-            svg.append("g")
-                .call(xAxis);
             
-            svg.append("g")
-                .call(yAxis);
             
-            return svg.node();
-          }   
+            // return svg.node();
+        //   };   
 
-        data = {
-            const data = (await require("@observablehq/unemployment")).map(d => d.rate);
-            data.y = "Counties";
-            data.x = "Unemployment (%)";
-            return data;
-        }
 
-        bins = d3.histogram()
-            .domain(x.domain())
-            .thresholds(x.ticks(40))
-        (data)
-
-        x = d3.scaleLinear()
-            .domain(d3.extent(data)).nice()
-            .range([margin.left, width - margin.right])
-
-        y = d3.scaleLinear()
-            .domain([0, d3.max(bins, d => d.length)]).nice()
-            .range([height - margin.bottom, margin.top])
-
+        
         xAxis = g => g
             .attr("transform", `translate(0,${height - margin.bottom})`)
             .call(d3.axisBottom(x).tickSizeOuter(0))
@@ -96,11 +94,18 @@ function buildCharts() {
                 .attr("font-weight", "bold")
                 .text(data.y))
 
+    
+        svg.append("g")
+            .call(xAxis);
+        
+        svg.append("g")
+            .call(yAxis);
+
         height = 500
 
         margin = ({top: 20, right: 20, bottom: 30, left: 40})
 
-        d3 = require("d3@5")
+        // d3 = require("d3@5")
 
 
 
