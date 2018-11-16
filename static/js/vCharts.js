@@ -1,4 +1,4 @@
-function buildCharts(caseName, chosenZip) {
+function buildChart(caseName, chosenZip) {
     d3.json('/jsonifiedData/').then(successHandle).catch(errorHandle)
     function errorHandle(error) {
         console.log("Unable to retrieve data")

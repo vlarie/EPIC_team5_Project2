@@ -23,6 +23,6 @@ var svg = d3.select("#chart-box")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Initial Params
-var chosenXAxis = "";
-var chosenYAxis = "";
+// // Initial Params
+// var chosenXAxis = "";
+// var chosenYAxis = "";
