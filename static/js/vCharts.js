@@ -1,120 +1,259 @@
 function buildCharts() {
     d3.json('/jsonifiedData/').then(successHandle).catch(errorHandle)
     function errorHandle(error) {
-    console.log("Unable to retrieve data")
-    throw error
+        console.log("Unable to retrieve data")
+        throw error
     }  
 
     function successHandle(response) {
-        console.log(response[0])
+// @TODO - Remove // console.log(response[0])
         // Zillow and commute data (response[0])
         response[0].forEach(function(data) {
             data.zipcode = +data.zipcode;
             data.valuation = +data.valuation;
-            data.value_change = +data.value_change;
-            data.value_range_high = +data.value_range_high;
-            data.value_range_high = +data.value_range_low;
-            data.value_sqft = +data.value_sqft;
-            data.year_built = +data.year_built;
             data.commuteTime = +data.commuteTime;
         });   
         // Crime data (response[1])
         response[1].forEach(function(data) {
             data.zipcode = +data.zipcode;
             data.offenseCategory = data.offenseCategory;
-            data.offenseDetails = data.offenseDetails;
             data.Severity = +data.Severity;
         });   
         // School data (response[2])
         response[2].forEach(function(data) {
-            data.zipcode = +data.zipcode;
-            data.offenseCategory = data.offenseCategory;
-            data.offenseDetails = data.offenseDetails;
+            data.house_zipcode = +data.house_zipcode;
+            data.school_rating = +data.school_rating;
         }); 
          
+        //////  RESPONSES GROUPED BY ZIPCODE  //////
+        // // Zillow/Commute response
+        var ZClist = arrayFromObject(response[0]);
+        // var result = groupBy(ZClist, function(item) {
+        //     return [item.zipcode];
         
+        // // Crime response
+        var Clist = arrayFromObject(response[1]);
+        // var result = groupBy(Clist, function(item) {
+        //     return [item.zipcode];
+
+        // // School response
+        var Slist = arrayFromObject(response[2]);
+        // var result = groupBy(Slist, function(item) {
+        //     return [item.house_zipcode];
+
+        // });
+
+        // // All groups (lists)
+        console.log(result);
+        // // Individual group zipcode
+        // console.log(result[0][0]["zipcode"]);
+
+        var data = "valuation";
+        var chosenZip = 78757;
+
+        switch(data) {
+            // If Valuation
+            // 78724 - low  - [43]  //////  USED FOR TESTING  @TODO REMOVE
+            // 78746 - high - [24]  //////  USED FOR TESTING  @TODO REMOVE
+            case 'valuation':
+                console.log("Zestimate case selected");
+                // var ZClist = arrayFromObject(response[0]);
+                var result = groupBy(ZClist, function(item) {
+                    return [item.zipcode];
+                }); 
+                var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
+                console.log(zillowCommuteZipGroupIndex);
+                var index = zillowCommuteZipGroupIndex[chosenZip];
+                var data = result[index].map(d => d.valuation);
+                    data.y = "# Houses";
+                    data.x = "Valuation (Zestimate)";
+                x = d3.scaleLinear()
+                    .domain(d3.extent(data))
+                    .nice()
+                    .range([margin.left, width - margin.right])
+                bins = d3.histogram()
+                    .domain(x.domain())
+                    .thresholds(x.ticks(20))
+                (data)
+                break
+
+            // If Commute
+            // 78703 - low  - [12]
+            // 78641 - high - [38]
+            case 'commuteTime':
+                console.log("Commute case selected");
+                // var ZClist = arrayFromObject(response[0]);
+                var result = groupBy(ZClist, function(item) {
+                    return [item.zipcode];
+                });
+                var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
+                console.log(zillowCommuteZipGroupIndex);
+                var index = zillowCommuteZipGroupIndex[chosenZip];
+                var data = result[index].map(d => d.commuteTime);
+                    data.y = "# Houses";
+                    data.x = "Commute Time (minutes)";
+                x = d3.scaleLinear()
+                    .domain(d3.extent(data))
+                    .nice()
+                    .range([margin.left, width - margin.right])
+                bins = d3.histogram()
+                    .domain(x.domain())
+                    .thresholds(x.ticks(20))
+                (data)
+                break
+
+            // If Crime
+            // 78732 - low - [45]
+            // 78744 - high - [8]
+            case 'offenseCategory':
+                console.log("Crime case selected");
+                // var Clist = arrayFromObject(response[1]);
+                var result = groupBy(Clist, function(item) {
+                    return [item.zipcode];
+                });
+                var crimeZipGroupIndex = zipGroupIndices(result, "zipcode");
+                console.log(crimeZipGroupIndex);
+                var index = crimeZipGroupIndex[chosenZip];
+                var data = result[index].map(d => d.Severity);
+                    data.y = "# Incidents";
+                    data.x = "Offense Category";
+                // Crime x-scale fixed to Severity range
+                x = d3.scaleLinear()
+                    .domain([0, 7])
+                    .nice()
+                    .range([margin.left, width - margin.right])
+                bins = d3.histogram()
+                    // .domain(x.domain())
+                    .thresholds(x.ticks(10))
+                (data)
+                break
+
+            // If School
+            // // 78617 - low - [5]  *** Missing 78701
+            // // 78738 - high - [2]
+            case 'school_rating':
+                console.log("School case selected");
+                // var Slist = arrayFromObject(response[2]);
+                var result = groupBy(Slist, function(item) {
+                    return [item.house_zipcode];
+                });
+                var schoolZipGroupIndex = zipGroupIndices(result, "house_zipcode");
+                console.log(schoolZipGroupIndex);
+                var index = schoolZipGroupIndex[chosenZip];
+            //////// Match var zipcode to index of same zipcode in schoolZipGroupIndex
+                var data = result[index].map(d => d.school_rating);
+                    data.y = "# Houses Zoned";
+                    data.x = "School Rating";        
+                // School x-scale fixed to school_rating range (0-10)
+                x = d3.scaleLinear()
+                    .domain([0, 10]) 
+                    .nice()
+                    .range([margin.left, width - margin.right])
+                bins = d3.histogram()
+                    // .domain(x.domain())
+                    .thresholds(x.ticks(20))
+                (data)
+                break
+        }
+
+
+
+
+        // x = d3.scaleLinear()
+        //     // .domain(d3.extent(data))
+        //     .domain([0, d3.max(data)]) 
+        //     .nice()
+        //     .range([margin.left, width - margin.right])
+
+        // bins = d3.histogram()
+        //     // .domain(x.domain())
+        //     .thresholds(x.ticks(20))
+        // (data)
+
     
-            var data = response[0].map(d => d.commuteTime);
-                data.y = "Houses";
-                data.x = "Commute Time (minutes)";
-                        
-            
-            x = d3.scaleLinear()
-                .domain(d3.extent(data))
-                .nice()
-                .range([margin.left, width - margin.right])
-
-            bins = d3.histogram()
-                .domain(x.domain())
-                .thresholds(x.ticks(20))
-            (data)
+        y = d3.scaleLinear()
+            .domain([0, d3.max(bins, d => d.length)])
+            .nice()
+            .range([height - margin.bottom, margin.top])
 
         
-            y = d3.scaleLinear()
-                .domain([0, d3.max(bins, d => d.length)])
-                .nice()
-                .range([height - margin.bottom, margin.top])
-
-            
-            bar = svg.append("g")
-                .attr("fill", "steelblue")
-                .selectAll("rect")
-                .data(bins)
-                .enter()
-                .append("rect")
-                .attr("x", d => x(d.x0) + 1)
-                .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-                .attr("y", d => y(d.length))
-                .attr("height", d => y(0) - y(d.length));
-            
-            
-            // return svg.node();
-        //   };   
-
-
+        bar = svg.append("g")
+            .attr("fill", "steelblue")
+            .selectAll("rect")
+            .data(bins)
+            .enter()
+            .append("rect")
+            .attr("x", d => x(d.x0))
+            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr("y", d => y(d.length))
+            .attr("height", d => y(0) - y(d.length));
         
         xAxis = g => g
             .attr("transform", `translate(0,${height - margin.bottom})`)
             .call(d3.axisBottom(x).tickSizeOuter(0))
             .call(g => g.append("text")
-                .attr("x", width - margin.right)
-                .attr("y", -4)
+                .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
+                .attr("y", 0)
+                .classed("axis-text", true)
+                .attr("value", "zipcodeGroup") // value to grab for event listener
                 .attr("fill", "#000")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
                 .text(data.x))
+
+    // var xlabelsGroup = chartGroup.append("g")
+    //     .attr("transform", `translate(${width / 2}, ${height + 20})`)
+    //     .classed("axis-text", true);
+
+    // var zipcodeLabel = xlabelsGroup.append("text")
+    //     .attr("x", 0)
+    //     .attr("y", 20)
+    //     .attr("value", "zipcode") // value to grab for event listener
+    //     .classed("active", true)
+    //     .text("In Poverty (%)");
 
         yAxis = g => g
             .attr("transform", `translate(${margin.left},0)`)
             .call(d3.axisLeft(y))
             .call(g => g.select(".domain").remove())
             .call(g => g.select(".tick:last-of-type text").clone()
-                .attr("x", 4)
+                // .attr("x", 4)
+                .attr("x", 0 - (height / 2))
+                .attr("y", 0 - (margin.left / 3))
+                .classed("axis-text", true)
+                .attr("transform", "rotate(-90)")
                 .attr("text-anchor", "start")
                 .attr("font-weight", "bold")
                 .text(data.y))
 
-    
+    // var ylabelsGroup = chartGroup.append("g")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("x", 0 - (height / 2))
+    //     .attr("y", 0 - margin.left)
+    //     .attr("dy", "1em")
+    //     .attr("value", "obesity") // value to grab for event listener
+    //     .classed("active", true)
+    //     .text("In Poverty (%)");
+
+    // var obesityLabel = ylabelsGroup.append("text")
+    //     .attr("x", 0 - (height / 2))
+    //     .attr("y", -80)
+    //     .attr("value", "obesity") // value to grab for event listener
+    //     .classed("active", true)
+    //     .text("Obese (%)");
+
         svg.append("g")
             .call(xAxis);
         
         svg.append("g")
             .call(yAxis);
 
-        height = 500
-
-        margin = ({top: 20, right: 20, bottom: 30, left: 40})
 
         // d3 = require("d3@5")
 
 
 
 
-    //     // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
-    //     var xLinearScale = d3.scaleLinear()
-    //     .domain(response[0].map(d => d.zipcode))
-    //     .range([0, width]);
-        
     //     var histogram = d3.histogram()
     //         .value(d => d.valuation)
     //         .domain(xLinearScale.domain())
@@ -122,10 +261,13 @@ function buildCharts() {
     
     //     var bins = histogram(response[0]);
 
-    // // Create a linear scale for the vertical axis.
-    // var yLinearScale = d3.scaleLinear()
-    //     .domain([0, d3.max(bins, d => d.valuation)])
-    //     .range([height, 0]);
+
+
+
+
+///////////////////////////    CODE BELOW NOT USED    ///////////////////////////
+///////////////////  BUT MAY HAVE NEEDED CODE FOR TRANSITIONS  /////////////////
+
 
     
     // //////  x/yLinearScale functions can be found in <vFunctions.js>  ///////

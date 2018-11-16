@@ -1,3 +1,38 @@
+// Groups responses from successHandle
+// Used to group data by zipcode (regions defined on choropleth map)
+function arrayFromObject(obj) {
+    var arr = [];
+    for (var i in obj) {
+        arr.push(obj[i]);
+    }
+    return arr;
+}
+
+function groupBy(list, fn) {
+    var groups = {};
+    for (var i = 0; i < list.length; i++) {
+        var group = JSON.stringify(fn(list[i]));
+        if (group in groups) {
+            groups[group].push(list[i]);
+        } else {
+            groups[group] = [list[i]];
+        }
+    }
+    return arrayFromObject(groups);
+}
+
+// Creates dictionary of indices of zipcode groups with zipcode as value
+function zipGroupIndices(listOfGroups, zipColumnName, fn) {
+    var zipGroups = {};
+    for (var i = 0; i < listOfGroups.length; i++) {
+        var zip = listOfGroups[i][0][zipColumnName];
+        zipGroups[zip] = i;
+    }
+    return zipGroups
+}
+
+
+
 // function used for updating x-scale var upon click on axis label
 function xScale(newsData, chosenXAxis) {
     // create scales
