@@ -37,7 +37,7 @@ def dashboard():
 
     # These reference variables allow for access on html via Jinja
     # Zillow and commute data
-    zillowCommDF = csvDF("./data/zillowClean.csv")
+    zillowCommDF = csvDF("./data/zillowCommuteData.csv")
     jsonZillowComm = json.loads(zillowCommDF.to_json(orient='records'))
 
     # Crime data
@@ -49,7 +49,8 @@ def dashboard():
     # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
     # schools=jsonSchool
 
-    return render_template("explore.html", listings=jsonZillowComm, incidents=jsonCrime)
+    # return render_template("explore.html", listings=jsonZillowComm, incidents=jsonCrime)
+    return render_template("tempDev.html", listings=jsonZillowComm, incidents=jsonCrime)
 
 
 # This route reads in CSVs containing datapoints and converts them to JSON format 
@@ -63,11 +64,8 @@ def jsonified():
         DF = pd.DataFrame(csvIN)
         return DF
 
-    DF = csvDF("./data/sampleDevData.csv")
-    jsonfiles = json.loads(DF.to_json(orient='records'))
-
     # Zillow and commute data
-    zillCommDF = csvDF("./data/zillowClean.csv")
+    zillCommDF = csvDF("./data/zillowCommuteData.csv")
     jsonZillComm = json.loads(zillCommDF.to_json(orient='records'))
 
     # Crime data
@@ -75,10 +73,10 @@ def jsonified():
     jsonCrime = json.loads(crimeDF.to_json(orient='records'))
 
     # School data
-    # schoolDF = csvDF("./data/schoolData.csv")
-    # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
+    schoolDF = csvDF("./data/schoolDataFINAL.csv")
+    jsonSchool = json.loads(schoolDF.to_json(orient='records'))
 
-    return jsonify(jsonZillComm, jsonCrime)
+    return jsonify(jsonZillComm, jsonCrime, jsonSchool)
 
 
 # This route displays dynamic timelapse map of Austin properties
