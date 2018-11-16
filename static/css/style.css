@@ -1,0 +1,149 @@
+/* GENERAL STYLES */
+body {
+    background-color: #ededed;
+    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Merriweather', serif; */
+    /* font-family: 'Bitter', serif; */
+}
+
+/* NAVBAR */
+#nav-links {
+    /* padding-bottom: 10px; */
+}
+
+.container {
+    margin-top: 5px;
+}
+
+#pills, a:link{
+    color: white;
+    text-decoration: none;
+}
+
+#nav-box {
+    color: white;
+}
+
+#myNavbar {
+    /* margin-top: 5px; */
+    padding-top: 10px;
+    padding-left: 35px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c1c1c1;
+    z-index: 3;
+    /* -webkit-box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.5); */
+    box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.5);
+    background-color: #1663c7;
+    widows: 100vw;
+
+}
+
+#epic-title {
+    color: white;
+    margin-top: 5px;
+    padding-left: 0px;
+}
+
+/* NAVBAR REFOCUS FIX */
+/*  */
+
+/* WHITE SIDE BAR AREA */
+.first {
+    background-color: #ddd;
+    z-index: 1;
+    /* position: relative; */
+}
+
+.ontop {
+    height: 700px;
+    background-color: rgb(255, 191, 191);
+    position: absolute;
+    top: -5px;
+    width: 460px;
+    left: 0px;
+    z-index: 2;
+}
+
+.white-screen {
+    padding-right: 60px;
+    height: 100%;
+    background: url("../../templates/images/white_alpha.png") top left repeat-y;
+    /* https://gia.guim.co.uk/2013/05/alaska/responsive/img/4_screen.png */
+}
+
+/* SIDEBAR */
+
+#sidebar {
+    margin-top: 75px;
+    /* height: 100vh; */
+}
+
+#filter-box {
+    background-color: rgba(255, 255, 255,  0);
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    width: 350px;
+    /* border-style: solid;
+    border-color: #e5e5e5;
+    border-width: 1px; */
+    align-content: center;
+}
+
+#mapkey-box {
+    background-color: rgba(255, 255, 255,  0);
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    width: 350px;
+    height: 120px;
+    /* border-style: solid;
+    border-color: #e5e5e5;
+    border-width: 1px; */
+}
+
+#chart-box {
+    background-color: rgba(255, 255, 255,  .1);
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    width: 350px;
+    height: 325px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    border-width: 1px;
+}
+
+/* MAP */
+
+#map {
+    /* index */
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-left: 15px;
+    background-color: white;
+    border-style: solid;
+    border-color: #e5e5e5;
+    border-width: 1px;
+    margin-left: -15px;
+    margin-bottom: 10px;
+    width: 100vw;
+    height: 90vh;
+    z-index: 1;
+}
+
+#footer-box {
+    background-color: #1663c7;
+    /* -webkit-box-shadow: 0px -3px 15px 0px rgba(0,0,0,0.5); */
+    box-shadow: 0px -2px 15px 0px rgba(0,0,0,0.5);
+    z-index: 3;
+    color: whitesmoke;;
+    font-size: .9em;
+}
