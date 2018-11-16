@@ -43,12 +43,11 @@ function buildCharts(caseName, chosenZip) {
             // 78746 - high - [24]  //////  USED FOR TESTING  @TODO REMOVE
             case 'valuation':
                 console.log("Zestimate case selected");
-                // var ZClist = arrayFromObject(response[0]);
                 var result = groupBy(ZClist, function(item) {
                     return [item.zipcode];
                 }); 
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
-                console.log(zillowCommuteZipGroupIndex);
+                // console.log(zillowCommuteZipGroupIndex);
                 var index = zillowCommuteZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.valuation);
                     data.y = "# Houses";
@@ -68,12 +67,11 @@ function buildCharts(caseName, chosenZip) {
             // 78641 - high - [38]
             case 'commuteTime':
                 console.log("Commute case selected");
-                // var ZClist = arrayFromObject(response[0]);
                 var result = groupBy(ZClist, function(item) {
                     return [item.zipcode];
                 });
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
-                console.log(zillowCommuteZipGroupIndex);
+                // console.log(zillowCommuteZipGroupIndex);
                 var index = zillowCommuteZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.commuteTime);
                     data.y = "# Houses";
@@ -89,16 +87,15 @@ function buildCharts(caseName, chosenZip) {
                 break
 
             // If Crime
-            // 78732 - low - [45]
+            // 78732 - low  - [45]
             // 78744 - high - [8]
             case 'Severity':
                 console.log("Crime case selected");
-                // var Clist = arrayFromObject(response[1]);
                 var result = groupBy(Clist, function(item) {
                     return [item.zipcode];
                 });
                 var crimeZipGroupIndex = zipGroupIndices(result, "zipcode");
-                console.log(crimeZipGroupIndex);
+                // console.log(crimeZipGroupIndex);
                 var index = crimeZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.Severity);
                     data.y = "# Incidents";
@@ -115,18 +112,16 @@ function buildCharts(caseName, chosenZip) {
                 break
 
             // If School
-            // // 78617 - low - [5]  *** Missing 78701, 78722
+            // // 78617 - low  - [5]  *** Missing 78701, 78722
             // // 78738 - high - [2]
             case 'school_rating':
                 console.log("School case selected");
-                // var Slist = arrayFromObject(response[2]);
                 var result = groupBy(Slist, function(item) {
                     return [item.house_zipcode];
                 });
                 var schoolZipGroupIndex = zipGroupIndices(result, "house_zipcode");
-                console.log(schoolZipGroupIndex);
+                // console.log(schoolZipGroupIndex);
                 var index = schoolZipGroupIndex[chosenZip];
-            //////// Match var zipcode to index of same zipcode in schoolZipGroupIndex
                 var data = result[index].map(d => d.school_rating);
                     data.y = "# Houses Zoned";
                     data.x = "School Rating";        
@@ -181,7 +176,7 @@ function buildCharts(caseName, chosenZip) {
                 .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
                 .attr("y", 0)
                 .classed("axis-text", true)
-                .attr("value", "zipcodeGroup") // value to grab for event listener
+                // .attr("value", "zipcodeGroup") // value to grab for event listener
                 .attr("fill", "#000")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
