@@ -8,6 +8,13 @@
 // year_built
 // the cp call at the bottom of the file sets the initial display data
 // still to come are crime and school data and the switch to change color and labels based on which data is being displayed
+import csv;
+
+
+f = open('../data/schoolDataFINAL.csv');
+csv_f = csv.reader(f);
+console.log(csv_f);
+
 
 function cp(geoProp) {
 
@@ -99,38 +106,84 @@ console.log(gpDescriptor + " " + endColor)
       },
 
       // Binding a pop-up to each layer
+
+
+      
       onEachFeature: function(feature, layer) {
-              layer.bindPopup(feature.properties.Name + " <br>" + feature.properties.zipcode + "<br> Sample Count:" + feature.properties.count_x + "<br> Average Home Age:" + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft):" + feature.properties.sqft+ "<br> Average School Rating: $" + feature.properties.School_Rating +  "<br> Average Commute Time (mins):" + feature.properties.commuteTime);
+              layer.bindPopup('<strong>'+feature.properties.Name+'</strong>' + " - " + feature.properties.zipcode + "<br><br> Sample Count: " + feature.properties.count + "<br> Average Home Age: " + (2018-feature.properties.year_built) + "<br> Average Home Size (sqft): " + feature.properties.sqft+ "<br> Average School Rating [1-10]: " + Math.floor(feature.properties.school_rating) +  "<br> Average Commute Time (mins): " + feature.properties.commuteTime);
+           
+              layer.on({
+                // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+                mouseover: function(event) {
+                  layer = event.target;
+                  layer.setStyle({
+                    fillOpacity: 0.9
+                  });
+                },
+                // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+                mouseout: function(event) {
+                  layer = event.target;
+                  layer.setStyle({
+                    fillOpacity: 0.5
+                  });
+                },
+                // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+                click: function(event) {
+                  map.fitBounds(event.target.getBounds());
+                }
+              });
+           
             }
     }).addTo(myMap);
 
     // Set up the legend
-    var legend = L.control({ position: "bottomright" });
-    legend.onAdd = function() {
-      var div = L.DomUtil.create("div", "info legend");
-      var limits = geojson.options.limits;
-      var colors = geojson.options.colors;
-      var labels = [];
+    // var legend = L.control({ position: "bottomright" });
+    // legend.onAdd = function() {
+    //   var div = L.DomUtil.create("div", "info legend");
+    //   var limits = geojson.options.limits;
+    //   var colors = geojson.options.colors;
+    //   var labels = [];
 
-      // Add min & max
-      var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
-        "<div class=\"labels\">" +
-          "<div class=\"min\">" + limits[0] + "</div>" +
-          "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
-        "</div>";
+    //   // Add min & max
+    //   var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
+    //     "<div class=\"labels\">" +
+    //       "<div class=\"min\">" + limits[0] + "</div>" +
+    //       "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+    //     "</div>";
 
-      div.innerHTML = legendInfo;
+    //   div.innerHTML = legendInfo;
 
-      limits.forEach(function(limit, index) {
-        labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-      });
+    //   limits.forEach(function(limit, index) {
+    //     labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
+    //   });
 
-      div.innerHTML += "<ul>" + labels.join("") + "</ul>";
-      return div;
-    };
+    //   div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+    //   return div;
+    // };
 
-    // Adding legend to the map
-    legend.addTo(myMap);
+    // // Adding legend to the map
+    // legend.addTo(myMap);
+
+    // legend experiment
+    var legendDiv = d3.select('#mapkey-box').append('div').classed("legend", true) ;
+    var legendLimits = geojson.options.limits;
+    var legendColors = geojson.options.colors;
+    var legendLabels = [];
+    console.log(legendDiv)
+
+    legendLimits.forEach(function(limit, index) {
+      legendLabels.push("<li style=\"background-color: " + legendColors [index] + "\"></li>");
+    });
+
+    // Add min & max
+    var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
+    "<div class=\"labels\">" +
+      "<div class=\"min\">" + legendLimits[0] + "</div>" +
+      "<div class=\"max\">" + legendLimits[legendLimits.length - 1] + "</div>" +
+    "</div>"+
+    "<ul>" + legendLabels.join("") + "</ul>";
+
+    legendDiv.html(legendInfo);
 
   }
 
