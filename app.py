@@ -26,30 +26,19 @@ def index():
 
 
 # This route displays the main dashboard users may interact with
-@app.route("/exploration/")
+@app.route("/explore/")
 def dashboard():
     print()
-    # Funtion for reading CSV in as DataFrame
-    def csvDF(oldCSVfilepath):
-        csvIN = pd.read_csv(oldCSVfilepath)
-        DF = pd.DataFrame(csvIN)
-        return DF
 
-    # These reference variables allow for access on html via Jinja
-    # Zillow and commute data
-    zillowCommDF = csvDF("./data/zillowClean.csv")
-    jsonZillowComm = json.loads(zillowCommDF.to_json(orient='records'))
+    return render_template("explore.html")
 
-    # Crime data
-    crimeDF = csvDF("./data/crimeData.csv")
-    jsonCrime = json.loads(crimeDF.to_json(orient='records'))
+# Route for geoJSON data
+# @app.route('/jsonifiedGeo/')
+# def geoJSONIFIED():
+#     print("Preparing geoJSON for mapping")
+#     f = open('static/data/EPIC_data_1405.geojson', 'r')
 
-    # School data
-    # schoolDF = csvDF("./data/schoolData.csv")
-    # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
-    # schools=jsonSchool
-
-    return render_template("explore.html", listings=jsonZillowComm, incidents=jsonCrime)
+#     return f.read()
 
 
 # This route reads in CSVs containing datapoints and converts them to JSON format 
@@ -63,22 +52,19 @@ def jsonified():
         DF = pd.DataFrame(csvIN)
         return DF
 
-    DF = csvDF("./data/sampleDevData.csv")
-    jsonfiles = json.loads(DF.to_json(orient='records'))
-
     # Zillow and commute data
-    zillCommDF = csvDF("./data/zillowClean.csv")
+    zillCommDF = csvDF("./static/data/zillowCommuteData.csv")
     jsonZillComm = json.loads(zillCommDF.to_json(orient='records'))
 
     # Crime data
-    crimeDF = csvDF("./data/crimeData.csv")
+    crimeDF = csvDF("./static/data/crimeData.csv")
     jsonCrime = json.loads(crimeDF.to_json(orient='records'))
 
     # School data
-    # schoolDF = csvDF("./data/schoolData.csv")
-    # jsonSchool = json.loads(schoolDF.to_json(orient='records'))
+    schoolDF = csvDF("./static/data/schoolDataFINAL.csv")
+    jsonSchool = json.loads(schoolDF.to_json(orient='records'))
 
-    return jsonify(jsonZillComm, jsonCrime)
+    return jsonify(jsonZillComm, jsonCrime, jsonSchool)
 
 
 # This route displays dynamic timelapse map of Austin properties

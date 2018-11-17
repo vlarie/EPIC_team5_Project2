@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
+    <!-- API key -->
+    <script type="text/javascript" src="../static/js/tConfig.js"></script>
+
     <!-- d3 JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
 
@@ -37,7 +40,9 @@
 <!-- NAVBAR -->
 <div id="nav-box" class=".bg-primary">
 <header class="navbar navbar-expand-lg navbar-light" id="myNavbar">
-    <a class="navbar-brand mb-0" href="#" id="epic-title"><h3>EPIC Austin Housing Explorer</h3></a>
+    <a class="navbar-brand mb-0" href="#" id="epic-title">
+        <h3>EPIC Austin Housing Explorer</h3>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,13 +76,12 @@
                 <h5 class="panel-title">Filters </h5>
             </div>
             <div class="panel-body">
-                <div id="filter-btns">
+                <div class="btn-group" id="filter-btns">
                     <!-- class="btn-group" role="group" -->
                     <button role="group" class="btn btn-outline-primary active" id="btn-house" onclick="cp('valuation')">Houses</button>
                     <button class="btn btn-outline-primary" id="btn-commute" onclick="cp('commuteTime')">Commute</button>
                     <button class="btn btn-outline-primary" id="btn-crime" onclick="cp('Severity')">Crime</button>
                     <button class="btn btn-outline-primary" id="btn-school" onclick="cp('school_rating')">School</button>
-                    <!-- onclick="myFunction()" -->
                 </div>
             </div>
         </div>
@@ -147,12 +151,13 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <!-- CHART -->
-<!-- <script type="text/javascript" src="../static/js/temp.js"></script> -->
+<script type="text/javascript" src="../static/js/vGlobals.js"></script>
+<script type="text/javascript" src="../static/js/vFunctions.js"></script>
+<script type="text/javascript" src="../static/js/vCharts.js"></script>
 
 <!-- LEAFLET CHOROPLETH-->
-<script type="text/javascript" src="../static/js/tChoropleth.js"></script>
-<!-- API key -->
-<script type="text/javascript" src="../static/js/tConfig.js"></script>
+
+
 <!-- JS -->
 <script type="text/javascript" src="../static/js/tLogic.js"></script>
 
