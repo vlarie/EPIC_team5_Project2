@@ -60,7 +60,7 @@ body {
     background-color: rgb(255, 191, 191);
     position: absolute;
     top: -5px;
-    width: 460px;
+    width: 500px;
     left: 0px;
     z-index: 2;
 }
@@ -94,7 +94,7 @@ body {
 }
 
 #mapkey-box {
-    background-color: rgba(255, 255, 255,  .1);
+    /* background-color: rgba(255, 255, 255,  .1); */
     margin-top: 5px;
     margin-left: 30px;
     margin-bottom: 15px;
