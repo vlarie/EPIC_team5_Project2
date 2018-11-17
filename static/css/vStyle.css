@@ -8,3 +8,7 @@ g {
 rect {
     fill: #1663c7!important;
 }
+
+.axis-text {
+    font-size: 14px;
+}

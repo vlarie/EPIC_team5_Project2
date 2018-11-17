@@ -55,16 +55,16 @@ function buildChart(caseName, chosenZip) {
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
                 // console.log(zillowCommuteZipGroupIndex);
                 var index = zillowCommuteZipGroupIndex[chosenZip];
-                var data = result[index].map(d => d.valuation);
+                var data = result[index].map(d => (d.valuation / 1000));
                     data.y = "# Houses";
-                    data.x = "Valuation (Zestimate)";
+                    data.x = "Valuation in K's (Zestimate)";
                 x = d3.scaleLinear()
                     .domain(d3.extent(data))
                     .nice()
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(10))
+                    .thresholds(x.ticks(7))
                 (data)
                 break
 
@@ -105,7 +105,7 @@ function buildChart(caseName, chosenZip) {
                 var index = crimeZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.Severity);
                     data.y = "# Incidents";
-                    data.x = "Offense Category";
+                    data.x = "Severity";
                 // Crime x-scale fixed to Severity range
                 x = d3.scaleLinear()
                     .domain([0, 7])
@@ -181,14 +181,16 @@ function buildChart(caseName, chosenZip) {
                 // .tickxSizeOuter(0)
                 )
             .call(g => g.append("text")
-                .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
+                .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom * 2.2})`)
                 .attr("y", 0)
                 .classed("axis-text", true)
                 // .attr("value", "zipcodeGroup") // value to grab for event listener
                 .attr("fill", "#000")
                 .attr("font-weight", "bold")
-                .attr("text-anchor", "end")
+                .attr("text-anchor", "center")
                 .text(data.x))
+                // .text(data.x))
+
     
     // // Append x-axis
     // var xAxis = chartGroup.append("g")
@@ -218,7 +220,7 @@ function buildChart(caseName, chosenZip) {
             .call(g => g.select(".tick:last-of-type text").clone()
                 // .attr("x", 4)
                 .attr("x", 0 - (height / 2))
-                .attr("y", 0 - (margin.left / 3))
+                .attr("y", 0 - (margin.left / 1.4))
                 .classed("axis-text", true)
                 .attr("transform", "rotate(-90)")
                 .attr("text-anchor", "start")
