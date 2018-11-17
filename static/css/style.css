@@ -97,13 +97,13 @@ body {
     /* background-color: rgb(255, 191, 191); */
     position: absolute;
     top: -5px;
-    width: 500px;
+    width: 475px;
     left: 0px;
     z-index: 2;
 }
 
 .white-screen {
-    padding-right: 60px;
+    padding-right: 0px;
     height: 100%;
     background: url('./white_alpha9.png') top left repeat-y;
 }
@@ -117,7 +117,7 @@ body {
 #filter-box {
     background-color: rgba(255, 255, 255,  0);
     margin-top: 15px;
-    margin-left: 15px;
+    margin-left: 30px;
     padding-top: 20px;
     padding-left: 15px;
     padding-bottom: 20px;
@@ -140,11 +140,8 @@ body {
     height: 120px;
     /* border-style: solid;
     border-color: #e5e5e5;
-    border-width: 1px; */
-    border-style: solid;
-    border-color: #e5e5e5;
     border-width: 1px;
-    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.2); */
 }
 
 #chart-box {

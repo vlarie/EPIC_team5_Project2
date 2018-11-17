@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     {% include "head.html" %}
-    <title>EPIC Austin Housing Explorer!</title>
+  <meta charset=utf-8 />
+  <title>Austin Housing Timeline</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <!-- Mapbox GL JS and CSS -->
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="../static/css/kStyle.css">
 </head>
 
 <body>
     {% include "navbar.html" %}
+  <!-- The div where we will inject our map -->
+  <div id="map"></div>
 
-<br><br><p>TRENDS PAGE</p>
-
+  <!-- API key -->
+  <script type="text/javascript" src="../static/js/kConfig.js"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="../static/js/kLogic.js"></script>
 </body>
 
 <!-- FOOTER -->
 {% include "footer.html" %}
 
 <!-- SCRIPTS -->
-{% include "scripts.html" %}   
+{% include "scripts.html" %}
 
 </html>
