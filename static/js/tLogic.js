@@ -43,7 +43,7 @@ function cp(geoProp) {
   }).addTo(myMap);
 
   // Link to GeoJSON
-  var link = "../data/EPIC_data_1405.geojson";
+  var link = "/static/data/EPIC_data_1405.geojson";
   var houseMarkersLink = '../data/houseMarkers.json'
 
   var geojson;
@@ -175,6 +175,9 @@ console.log(gpDescriptor + " " + endColor)
     // legend.addTo(myMap);
 
     // legend experiment
+
+    console.log (d3.select('#mapkey-box').select('div'));
+    d3.select('#mapkey-box').select('div').remove();
     var legendDiv = d3.select('#mapkey-box').append('div').classed("legend", true) ;
     var legendLimits = geojson.options.limits;
     var legendColors = geojson.options.colors;
@@ -186,7 +189,7 @@ console.log(gpDescriptor + " " + endColor)
     });
 
     // Add min & max
-    var legendInfo = "<h1>" + gpDescriptor + "</h1>" +
+    var legendInfo = "<h5>" + gpDescriptor + "</h5>" +
     "<div class=\"labels\">" +
       "<div class=\"min\">" + Math.ceil(legendLimits[0]) + "</div>" +
       "<div class=\"max\">" + Math.ceil(legendLimits[legendLimits.length - 1]) + "</div>" +
