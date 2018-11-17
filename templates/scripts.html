@@ -1,45 +1,11 @@
-<!-- SCRIPTS -->
-
-<!-- BUTTON Functionality -->
-<script>
-    // Get the container element
-    var btnContainer = document.getElementById("filter-btns");
-
-    // Get all buttons with class="btn" inside the container
-    var btns = btnContainer.getElementsByClassName("btn");
-
-    // Loop through the buttons and add the active class to the current/clicked button
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-        var current = document.getElementById("filter-btns").getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-      });
-    }
-</script>
-
-<!-- JQUERY -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-<!-- BOOTSTRAP -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-<!-- D3 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-
-<!-- Plotly -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <!-- CHART -->
-<!-- <script type="text/javascript" src="../static/js/temp.js"></script> -->
+<script type="text/javascript" src="../static/js/vGlobals.js"></script>
+<script type="text/javascript" src="../static/js/vFunctions.js"></script>
+<script type="text/javascript" src="../static/js/vCharts.js"></script>
 
-<!-- LEAFLET CHOROPLETH-->
-<!-- <script type="text/javascript" src="../static/js/tChoropleth.js"></script> -->
-<script type = "text/javascript" src = "{{ url_for('static', filename = 'js/tChoropleth.js') }}" ></script>
-<!-- API key -->
-<!-- <script type="text/javascript" src="../static/js/tConfig.js"></script> -->
-<script type = "text/javascript" src = "{{ url_for('static', filename = 'js/tConfig.js') }}" ></script>
 <!-- JS -->
-<!-- <script type="text/javascript" src="../static/js/tLogic.js"></script> -->
-<script type = "text/javascript" src = "{{ url_for('static', filename = 'js/tLogic.js') }}" ></script>
-
+<script type="text/javascript" src="../static/js/tLogic.js"></script>

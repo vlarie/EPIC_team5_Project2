@@ -133,16 +133,17 @@ console.log(gpDescriptor + " " + endColor)
                   buildChart(geoProp, event.sourceTarget.feature.properties.zipcode)
                 }
               });
-              layer.bindPopup('<h2>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h2>' 
-              + "<hr> Sample Count: <strong>" + feature.properties.count + "</strong>"
-              + "<h2>Averages</h2><hr>"               
-              + "<h4>Home Value: <strong>$" + feature.properties.valuation + "</strong></h4>"
+              layer.bindPopup('<h3>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h3>' 
+              + "<hr>" 
+              + "<h5>Sample Count: <strong>" + feature.properties.count + "</strong></h5>"
+              + "<h3>Averages</h3><hr>"               
+              + "<h5>Home Value: <strong>$" + feature.properties.valuation + "</strong></h5>"
               // + "<h4>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
-              + "<h4>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h4>"
-              + "<h4>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h4>"
-              + "<h4>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h4>" 
-              + "<h4>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h4>"
-              + "<h4>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h4>");
+              + "<h5>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h5>"
+              + "<h5>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h5>"
+              + "<h5>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h5>" 
+              + "<h5>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h5>"
+              + "<h5>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h5>");
             }
     }).addTo(myMap);
 
