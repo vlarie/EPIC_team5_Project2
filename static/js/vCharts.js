@@ -6,7 +6,6 @@ function buildChart(caseName, chosenZip) {
     }  
 
     function successHandle(response) {
-// @TODO - Remove // console.log(response[0])
         // Zillow and commute data (response[0])
         response[0].forEach(function(data) {
             data.zipcode = +data.zipcode;
@@ -26,16 +25,23 @@ function buildChart(caseName, chosenZip) {
         }); 
          
         //////  RESPONSES GROUPED BY ZIPCODE  //////
-        // // Zillow/Commute response
+        // Zillow/Commute response
         var ZClist = arrayFromObject(response[0]);
-        // // Crime response
+        // Crime response
         var Clist = arrayFromObject(response[1]);
-        // // School response
+        // School response
         var Slist = arrayFromObject(response[2]);
 
+        // Clear div to rebuild chart
+        d3.select('#histogram').html('');
+
+
+        var svg = d3.select("#histogram")
+            .append("svg")
+            .attr("width", svgWidth)
+            .attr("height", svgHeight);
 
         var data = caseName;
-        // var chosenZip = 78722;
 
         switch(data) {
             // If Valuation
@@ -58,7 +64,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
 
@@ -82,7 +88,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
 
@@ -132,7 +138,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     // .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
         }
@@ -171,7 +177,9 @@ function buildChart(caseName, chosenZip) {
         
         xAxis = g => g
             .attr("transform", `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(x).tickSizeOuter(0))
+            .call(d3.axisBottom(x)
+                // .tickxSizeOuter(0)
+                )
             .call(g => g.append("text")
                 .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
                 .attr("y", 0)
@@ -181,6 +189,16 @@ function buildChart(caseName, chosenZip) {
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
                 .text(data.x))
+    
+    // // Append x-axis
+    // var xAxis = chartGroup.append("g")
+    //     .classed("x-axis", true)
+    //     .attr("transform", `translate(0,${height - margin.bottom})`)
+    //     .call(bottomAxis);
+
+    // var bottomAxis = d3.axisBottom(x);
+
+
 
     // var xlabelsGroup = chartGroup.append("g")
     //     .attr("transform", `translate(${width / 2}, ${height + 20})`)
@@ -458,4 +476,4 @@ function buildChart(caseName, chosenZip) {
     }
 }
 
-buildCharts();
+// buildChart("valuation", 78722);

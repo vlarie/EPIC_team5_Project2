@@ -33,12 +33,12 @@ def dashboard():
     return render_template("explore.html")
 
 # Route for geoJSON data
-# @app.route('/jsonifiedGeo/')
-# def geoJSONIFIED():
-#     print("Preparing geoJSON for mapping")
-#     f = open('static/data/EPIC_data_1405.geojson', 'r')
+@app.route('/jsonifiedGeo/')
+def geoJSONIFIED():
+    print("Preparing geoJSON for mapping")
+    f = open('static/data/EPIC_data_1405.geojson', 'r')
 
-#     return f.read()
+    return f.read()
 
 
 # This route reads in CSVs containing datapoints and converts them to JSON format 
