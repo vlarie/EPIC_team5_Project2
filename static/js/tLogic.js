@@ -134,7 +134,7 @@ console.log(gpDescriptor + " " + endColor)
                 }
               });
               layer.bindPopup('<h3>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h3>' 
-              + "<hr> 
+              + "<hr>" 
               + "<h5>Sample Count: <strong>" + feature.properties.count + "</strong></h5>"
               + "<h3>Averages</h3><hr>"               
               + "<h5>Home Value: <strong>$" + feature.properties.valuation + "</strong></h5>"
