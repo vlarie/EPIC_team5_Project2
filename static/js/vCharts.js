@@ -1,3 +1,6 @@
+// var clear = 
+// d3.select('#chart-box').selectAll('svg').remove("g");
+
 function buildChart(caseName, chosenZip) {
     d3.json('/jsonifiedData/').then(successHandle).catch(errorHandle)
     function errorHandle(error) {
@@ -58,7 +61,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
 
@@ -82,7 +85,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
 
@@ -132,7 +135,7 @@ function buildChart(caseName, chosenZip) {
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     // .domain(x.domain())
-                    .thresholds(x.ticks(20))
+                    .thresholds(x.ticks(10))
                 (data)
                 break
         }
