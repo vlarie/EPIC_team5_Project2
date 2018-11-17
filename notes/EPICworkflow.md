@@ -1,5 +1,5 @@
 ## Workflow Procedures for Team EPIC
-
+---
 #### NOTE:  Until unique environment is developed for this project, work in PythonData virtual environment
 
 To ensure receipt of notifications on repo
@@ -15,7 +15,7 @@ lowercase first initial of person working branch + CamelCase of task being worke
 Name branches relevant to task being developed
 - gui, timeMap, dashboard, etc
 	
-	
+---
 	
 ## Procedure for merging to master
 #### NOTE:  Merging to master should occur when one of these conditions has been met:
@@ -47,7 +47,26 @@ Work on a branch locally making commits often as code develops.
 
 
 
-### Push branch to GitHub
+
+### Incorporate latest master and test
+terminal method:
+- Check to make sure you are on your branch and your changes have been committed
+
+`git checkout <branch_name>`
+
+`git status`
+
+- Pull master into local branch in development
+
+`git pull origin master`
+
+- Retest your code.  Make sure code is functions with current master branch.
+
+- AFTER you have confirmed code still functions as expected, then proceed.
+
+
+
+### Push local branch to remote repository on GitHub
 terminal method:
 - Updates branch specified on GitHub
 
@@ -94,7 +113,7 @@ terminal method:
 ![GitFetch](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus1.PNG)
 ![GitPull](https://github.com/vlarie/EPIC_team5_Project2/blob/master/notes/gitStatus2.PNG)
 
-#### NOTE: You may have to review differences/merge conflicts
+#### NOTE: You may have to review and resolve differences/merge conflicts
 
 
 

@@ -9,6 +9,7 @@ Quick links to libraries, APIs, maps, and other data resources utilized in the c
 * gmplot - https://pypi.org/project/gmplot/
 * geopy - https://geopy.readthedocs.io/en/stable/#installation
 * gmaps - https://pypi.org/project/gmaps/
+* geopandas - 
 
 #### Standard Libraries/Modules
 * pandas
@@ -30,13 +31,13 @@ Quick links to libraries, APIs, maps, and other data resources utilized in the c
 ## Mapping Utilities
 * Neighborhoods GeoJSON - 
   - Converter for KML -> GeoJSON
-* Leaflet.heat - https://github.com/Leaflet/Leaflet.heat/blob/gh-pages/dist/leaflet-heat.js
-  - not yet used, but may be useful
+* d3.histogram - https://d3-wiki.readthedocs.io/zh_CN/master/Histogram-Layout/
 * Leaflet Marker Clustering - https://leafletjs.com/plugins.html#clusteringdecluttering
   - not yet used, but may be useful
 
 ## Datasets
-* City of Austin Census
-* US Census Bureau
-* School Digger
+* City of Austin Datasets (crime reports)
+* US Census Bureau (commute times)
+* Great!Schools
 * Texas School Guide
+* Zillow (home metrics)
