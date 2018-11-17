@@ -137,8 +137,7 @@ console.log(gpDescriptor + " " + endColor)
               + '<hr>' 
               + '<h6 style="text-align:center;">Sample Count: <strong>' + feature.properties.count + '</strong></h6><br>'
               + "<h5>Averages</h5><hr>"               
-              + "<h6>Home Value: <strong>$" + feature.properties.valuation + "</strong></h6>"
-              // + "<h4>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
+              + "<h6>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
               + "<h6>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h6>"
               + "<h6>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h6>"
               + "<h6>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h6>" 
