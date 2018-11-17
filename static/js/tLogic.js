@@ -140,7 +140,7 @@ console.log(gpDescriptor + " " + endColor)
               // + "<h4>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
               + "<h4>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h4>"
               + "<h4>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h4>"
-              + "<h4>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h4>" 
+              + "<h6>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h6>" 
               + "<h4>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h4>"
               + "<h4>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h4>");
             }
