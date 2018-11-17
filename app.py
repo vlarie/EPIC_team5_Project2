@@ -22,7 +22,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     print("Return the homepage")
-    return render_template("index.html")
+    return render_template("explore.html")
 
 
 # This route displays the main dashboard users may interact with
