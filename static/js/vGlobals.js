@@ -1,7 +1,7 @@
 ///////////  SVG and Chart Group established for html  ///////////
 
-var svgWidth = 960;
-var svgHeight = 500;
+var svgWidth = 500;
+var svgHeight = 250;
 
 var margin = {
   top: 20,
@@ -15,6 +15,7 @@ var height = svgHeight - margin.top - margin.bottom;
 
 // SVG wrapper with SVG group to hold chart and shift by left and top margins.
 var svg = d3.select("#chart-box")
+  .remove("svg")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
