@@ -35,7 +35,7 @@ function buildChart(caseName, chosenZip) {
         // Clear div to rebuild chart
         d3.select('#histogram').html('');
 
-
+        // Build elements for chart
         var svg = d3.select("#histogram")
             .append("svg")
             .attr("width", svgWidth)
@@ -55,16 +55,16 @@ function buildChart(caseName, chosenZip) {
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
                 // console.log(zillowCommuteZipGroupIndex);
                 var index = zillowCommuteZipGroupIndex[chosenZip];
-                var data = result[index].map(d => d.valuation);
+                var data = result[index].map(d => (d.valuation / 1000));
                     data.y = "# Houses";
-                    data.x = "Valuation (Zestimate)";
+                    data.x = "Valuation in K's (Zestimate)";
                 x = d3.scaleLinear()
                     .domain(d3.extent(data))
                     .nice()
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
                     .domain(x.domain())
-                    .thresholds(x.ticks(10))
+                    .thresholds(x.ticks(5))
                 (data)
                 break
 
@@ -105,15 +105,15 @@ function buildChart(caseName, chosenZip) {
                 var index = crimeZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.Severity);
                     data.y = "# Incidents";
-                    data.x = "Offense Category";
+                    data.x = "Severity";
                 // Crime x-scale fixed to Severity range
                 x = d3.scaleLinear()
-                    .domain([0, 7])
+                    .domain([0, 10])
                     .nice()
                     .range([margin.left, width - margin.right])
                 bins = d3.histogram()
-                    // .domain(x.domain())
-                    .thresholds(x.ticks(10))
+                    .domain(x.domain())
+                    .thresholds(x.ticks(7))
                 (data)
                 break
 
@@ -143,27 +143,11 @@ function buildChart(caseName, chosenZip) {
                 break
         }
 
-
-
-
-        // x = d3.scaleLinear()
-        //     // .domain(d3.extent(data))
-        //     .domain([0, d3.max(data)]) 
-        //     .nice()
-        //     .range([margin.left, width - margin.right])
-
-        // bins = d3.histogram()
-        //     // .domain(x.domain())
-        //     .thresholds(x.ticks(20))
-        // (data)
-
-    
         y = d3.scaleLinear()
             .domain([0, d3.max(bins, d => d.length)])
             .nice()
             .range([height - margin.bottom, margin.top])
 
-        
         bar = svg.append("g")
             .attr("fill", "steelblue")
             .selectAll("rect")
@@ -177,69 +161,28 @@ function buildChart(caseName, chosenZip) {
         
         xAxis = g => g
             .attr("transform", `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(x)
-                // .tickxSizeOuter(0)
-                )
+            .call(d3.axisBottom(x))
             .call(g => g.append("text")
-                .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
+                .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom * 2.2})`)
                 .attr("y", 0)
                 .classed("axis-text", true)
-                // .attr("value", "zipcodeGroup") // value to grab for event listener
                 .attr("fill", "#000")
                 .attr("font-weight", "bold")
-                .attr("text-anchor", "end")
+                .attr("text-anchor", "center")
                 .text(data.x))
-    
-    // // Append x-axis
-    // var xAxis = chartGroup.append("g")
-    //     .classed("x-axis", true)
-    //     .attr("transform", `translate(0,${height - margin.bottom})`)
-    //     .call(bottomAxis);
-
-    // var bottomAxis = d3.axisBottom(x);
-
-
-
-    // var xlabelsGroup = chartGroup.append("g")
-    //     .attr("transform", `translate(${width / 2}, ${height + 20})`)
-    //     .classed("axis-text", true);
-
-    // var zipcodeLabel = xlabelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value", "zipcode") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("In Poverty (%)");
 
         yAxis = g => g
             .attr("transform", `translate(${margin.left},0)`)
             .call(d3.axisLeft(y))
             .call(g => g.select(".domain").remove())
             .call(g => g.select(".tick:last-of-type text").clone()
-                // .attr("x", 4)
                 .attr("x", 0 - (height / 2))
-                .attr("y", 0 - (margin.left / 3))
+                .attr("y", 0 - (margin.left / 1.4))
                 .classed("axis-text", true)
                 .attr("transform", "rotate(-90)")
                 .attr("text-anchor", "start")
                 .attr("font-weight", "bold")
                 .text(data.y))
-
-    // var ylabelsGroup = chartGroup.append("g")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("y", 0 - margin.left)
-    //     .attr("dy", "1em")
-    //     .attr("value", "obesity") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("In Poverty (%)");
-
-    // var obesityLabel = ylabelsGroup.append("text")
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("y", -80)
-    //     .attr("value", "obesity") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Obese (%)");
 
         svg.append("g")
             .call(xAxis);
@@ -248,24 +191,8 @@ function buildChart(caseName, chosenZip) {
             .call(yAxis);
 
 
-        // d3 = require("d3@5")
-
-
-
-
-    //     var histogram = d3.histogram()
-    //         .value(d => d.valuation)
-    //         .domain(xLinearScale.domain())
-    //         .thresholds(xLinearScale.ticks(10));
-    
-    //     var bins = histogram(response[0]);
-
-
-
-
-
 ///////////////////////////    CODE BELOW NOT USED    ///////////////////////////
-///////////////////  BUT MAY HAVE NEEDED CODE FOR TRANSITIONS  /////////////////
+///////////////////  BUT MAY HAVE CODE NEEDED FOR TRANSITIONS  /////////////////
 
 
     
