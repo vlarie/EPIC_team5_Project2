@@ -171,7 +171,9 @@ function buildChart(caseName, chosenZip) {
         
         xAxis = g => g
             .attr("transform", `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(x).tickSizeOuter(0))
+            .call(d3.axisBottom(x)
+                // .tickSizeOuter(0)
+                )
             .call(g => g.append("text")
                 .attr("transform", `translate(${(margin.left + width + margin.right) / 2}, ${margin.bottom / 2})`)
                 .attr("y", 0)
@@ -458,4 +460,4 @@ function buildChart(caseName, chosenZip) {
     }
 }
 
-buildCharts();
+buildChart("valuation", 78722);
