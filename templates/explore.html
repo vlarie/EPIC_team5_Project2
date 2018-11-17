@@ -4,31 +4,12 @@
 <!-- HEAD -->
 <head>
     {% include "head.html" %}
-    <title>EPIC Project 2!</title>
+    <title>EPIC Austin Housing Explorer</title>
 </head>
 
 <!-- BODY / LOADS INITIAL MAP ON LOAD -->
 <body onload="cp('valuation');">
-
-<!-- NAVBAR -->
-<div id="nav-box" class=".bg-primary">
-<header class="navbar navbar-expand-lg navbar-light" id="myNavbar">
-    <a class="navbar-brand mb-0" href="#" id="epic-title">
-        <h3>EPIC Austin Housing Explorer</h3>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- NAVIGATION LINKS -->
-        <div class="btn-toolbar flex-grow-1 text-right">
-        <ul class="navbar-nav ml-auto flex-nowrap" id="nav-links">
-                <button onclick="location.href='/exploration'" type="button" class="btn btn-secondary bt-lg ml-2 active" id="btn-explore">Explore</button>
-                <button onclick="location.href='/trends'" type="button" class="btn btn-secondary bt-lg ml-2" id="btn-trends">Trends</button>
-        </ul>
-        </div>
-    </header>
-</div>
+    {% include "navbar.html" %}
 
 <!-- MAP BOX -->
 <div class="container-fluid first" id="map">
@@ -46,7 +27,7 @@
     <div id="filter-box">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h5 class="panel-title">Filters </h5>
+                <h5 class="panel-title"></h5>
             </div>
             <div class="panel-body">
                 <div class="btn-group" id="filter-btns">
