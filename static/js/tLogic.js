@@ -24,7 +24,7 @@ function cp(geoProp) {
 
   // Creating map object
   var myMap = L.map("map", {
-    center: [30.301378,-98.0103974],
+    center: [30.3,-97.9],
     zoomControl: false,
     zoom: 11
   });
@@ -133,17 +133,17 @@ console.log(gpDescriptor + " " + endColor)
                   buildChart(geoProp, event.sourceTarget.feature.properties.zipcode)
                 }
               });
-              layer.bindPopup('<h3>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h3>' 
-              + "<hr>" 
-              + "<h5>Sample Count: <strong>" + feature.properties.count + "</strong></h5>"
-              + "<h3>Averages</h3><hr>"               
-              + "<h5>Home Value: <strong>$" + feature.properties.valuation + "</strong></h5>"
+              layer.bindPopup('<h4>'+feature.properties.Name+ " - " + feature.properties.zipcode + '</h4>' 
+              + '<hr>' 
+              + '<h6 style="text-align:center;">Sample Count: <strong>' + feature.properties.count + '</strong></h6><br>'
+              + "<h4>Averages</h4><hr>"               
+              + "<h6>Home Value: <strong>$" + feature.properties.valuation + "</strong></h6>"
               // + "<h4>Home Value: <strong>$" + (feature.properties.valuation).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "</strong></h4>"
-              + "<h5>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h5>"
-              + "<h5>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h5>"
-              + "<h5>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h5>" 
-              + "<h5>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h5>"
-              + "<h5>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h5>");
+              + "<h6>Home Age (years): <strong>" + (2018-feature.properties.year_built) + "</strong></h6>"
+              + "<h6>Home Size (sqft): <strong>" + feature.properties.sqft + "</strong></h6>"
+              + "<h6>School Rating [1-10]: <strong>" + Math.floor(feature.properties.school_rating) + "</strong></h6>" 
+              + "<h6>Commute Time (mins): <strong>" + feature.properties.commuteTime + "</strong></h6>"
+              + "<h6>Crime Severity [1-10]: <strong>" + feature.properties.Severity + "</strong></h6>");
             }
     }).addTo(myMap);
 
