@@ -140,11 +140,8 @@ body {
     height: 120px;
     /* border-style: solid;
     border-color: #e5e5e5;
-    border-width: 1px; */
-    border-style: solid;
-    border-color: #e5e5e5;
     border-width: 1px;
-    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.2); */
 }
 
 #chart-box {
