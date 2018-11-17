@@ -12,3 +12,8 @@ rect {
 .axis-text {
     font-size: 14px;
 }
+
+#click-explore {
+    text-align: center;
+    color: rgb(97, 97, 97);
+}

@@ -45,15 +45,16 @@ function buildChart(caseName, chosenZip) {
 
         switch(data) {
             // If Valuation
-            // 78724 - low  - [43]  //////  USED FOR TESTING  @TODO REMOVE
-            // 78746 - high - [24]  //////  USED FOR TESTING  @TODO REMOVE
+            // 78724 - low  - [43]
+            // 78746 - high - [24]
             case 'valuation':
                 console.log("Zestimate case selected");
                 var result = groupBy(ZClist, function(item) {
                     return [item.zipcode];
                 }); 
+                // Create dictionary of {zipcode: index} based on zipcode grouped array
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
-                // console.log(zillowCommuteZipGroupIndex);
+                // Look up index for chosen zipcode based on click event in <tLogic.js>
                 var index = zillowCommuteZipGroupIndex[chosenZip];
                 var data = result[index].map(d => (d.valuation / 1000));
                     data.y = "# Houses";
@@ -76,8 +77,9 @@ function buildChart(caseName, chosenZip) {
                 var result = groupBy(ZClist, function(item) {
                     return [item.zipcode];
                 });
+                // Create dictionary of {zipcode: index} based on zipcode grouped array
                 var zillowCommuteZipGroupIndex = zipGroupIndices(result, "zipcode");
-                // console.log(zillowCommuteZipGroupIndex);
+                // Look up index for chosen zipcode based on click event in <tLogic.js>
                 var index = zillowCommuteZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.commuteTime);
                     data.y = "# Houses";
@@ -100,8 +102,9 @@ function buildChart(caseName, chosenZip) {
                 var result = groupBy(Clist, function(item) {
                     return [item.zipcode];
                 });
+                // Create dictionary of {zipcode: index} based on zipcode grouped array
                 var crimeZipGroupIndex = zipGroupIndices(result, "zipcode");
-                // console.log(crimeZipGroupIndex);
+                // Look up index for chosen zipcode based on click event in <tLogic.js>
                 var index = crimeZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.Severity);
                     data.y = "# Incidents";
@@ -125,8 +128,9 @@ function buildChart(caseName, chosenZip) {
                 var result = groupBy(Slist, function(item) {
                     return [item.house_zipcode];
                 });
+                // Create dictionary of {zipcode: index} based on zipcode grouped array
                 var schoolZipGroupIndex = zipGroupIndices(result, "house_zipcode");
-                // console.log(schoolZipGroupIndex);
+                // Look up index for chosen zipcode based on click event in <tLogic.js>
                 var index = schoolZipGroupIndex[chosenZip];
                 var data = result[index].map(d => d.school_rating);
                     data.y = "# Houses Zoned";
