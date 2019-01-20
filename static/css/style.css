@@ -2,6 +2,8 @@
 body {
     background-color: #ededed;
     font-family: 'Roboto', sans-serif;
+    padding: 0; 
+    margin: 0;
     /* font-family: 'Merriweather', serif; */
     /* font-family: 'Bitter', serif; */
 }
@@ -161,6 +163,12 @@ body {
 
 /* MAP */
 
+#kMap { 
+    position:absolute; 
+    top:0; 
+    bottom:0; 
+    width:100% }
+
 #map {
     /* index */
     margin-top: 0px;
@@ -174,7 +182,7 @@ body {
     margin-bottom: 10px;
     width: 100vw;
     height: 90vh;
-    z-index: 1;
+    z-index: -1;
 }
 
 #footer-box {

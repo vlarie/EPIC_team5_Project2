@@ -2,15 +2,15 @@
 body { padding: 0; margin: 0; }
   
  /* set map, body, and html to 100% of the screen size */
- #map { position:absolute; top:0; bottom:0; width:100% }
+ #kMap { position:absolute; top:0; bottom:0; width:100% }
 
  .map-overlay {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     position: absolute;
     width: 25%;
-    top: 0;
-    left: 0;
-    padding: 10px;
+    top: 75;
+    left: 25;
+    padding: 25px;
 }
 
 .map-overlay .map-overlay-inner {
@@ -40,4 +40,10 @@ body { padding: 0; margin: 0; }
     position: relative;
     margin: 0;
     cursor: ew-resize;
+}
+
+#year {
+    font-weight: 500;
+    font-size: 1.5em;
+    color: black;
 }
