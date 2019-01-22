@@ -1,6 +1,6 @@
 // Initializing the map with dark theme, centered on Austin
 var map = new mapboxgl.Map({
-    container: 'map',
+    container: 'kMap',
     style: 'mapbox://styles/mapbox/dark-v9',
     center: [-97.7431,30.2672],
     zoom: 9.55,
