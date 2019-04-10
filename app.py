@@ -13,7 +13,7 @@ from flask import Flask, jsonify, render_template
 
 # To access Heroku config variables
 from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+s3 = S3Connection(os.environ['API_KEY'], os.environ['S3_SECRET'])
 
 app = Flask(__name__)
 
