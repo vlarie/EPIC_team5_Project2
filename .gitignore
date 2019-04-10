@@ -1,6 +1,7 @@
 **/config.py
 **/.gitkeep
 **/.DS_Store
+tConfig.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
