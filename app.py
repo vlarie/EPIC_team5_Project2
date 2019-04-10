@@ -13,7 +13,7 @@ from flask import Flask, jsonify, render_template
 
 # To access Heroku config variables
 from boto.s3.connection import S3Connection
-API_KEY = S3Connection(os.environ['API_KEY'])
+s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     print("Return the homepage")
-    return API_KEY, render_template("explore.html")
+    return render_template("explore.html")
 
 
 # This route displays the main dashboard users may interact with
@@ -34,7 +34,7 @@ def index():
 def dashboard():
     print()
 
-    return API_KEY, render_template("explore.html")
+    return render_template("explore.html")
 
 # Route for geoJSON data
 @app.route('/jsonifiedGeo/')
